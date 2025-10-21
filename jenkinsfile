@@ -6,13 +6,13 @@ pipeline {
     }
 
     stages {
-        stage('Instalación') {
+        stage('Instalacion Dependencias') {
             steps {
                 bat 'npm install'
             }
         }
 
-        stage('Análisis de código') {
+        stage('Analisis de codigo') {
             steps {
                 bat 'npx eslint . || exit 0'
             }
