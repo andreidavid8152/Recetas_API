@@ -1,3 +1,4 @@
+/* eslint-env node */
 const Receta = require("../models/Receta");
 
 exports.obtenerRecetas = async (req, res) => {

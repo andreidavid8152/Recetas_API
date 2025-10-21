@@ -36,7 +36,7 @@ pipeline {
             bat """
             curl -H "Content-Type: application/json" ^
                  -X POST %DISCORD_WEBHOOK% ^
-                 -d "{\\"content\\": \\"✅ Pipeline exitosa: Análisis, Tests y Deploy completado\\"}"
+                 -d "{\\"content\\": \\"Pipeline exitoso: Analisis, Tests y Deploy completado\\"}"
             """
         }
 
@@ -44,7 +44,7 @@ pipeline {
             bat """
             curl -H "Content-Type: application/json" ^
                  -X POST %DISCORD_WEBHOOK% ^
-                 -d "{\\"content\\": \\"❌ La pipeline falló. Revisa los logs de Jenkins.\\"}"
+                 -d "{\\"content\\": \\"El pipeline fallo. Revisa los logs de Jenkins.\\"}"
             """
         }
 
@@ -52,7 +52,7 @@ pipeline {
             bat """
             curl -H "Content-Type: application/json" ^
                  -X POST %DISCORD_WEBHOOK% ^
-                 -d "{\\"content\\": \\"ℹ️ Pipeline finalizada (éxito o fallo)\\"}"
+                 -d "{\\"content\\": \\"Pipeline finalizada\\"}"
             """
         }
     }

@@ -1,3 +1,4 @@
+/* eslint-env node */
 const express = require("express");
 const router = express.Router();
 const recetaController = require("../controllers/receta.controller");

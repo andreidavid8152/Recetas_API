@@ -1,3 +1,4 @@
+/* eslint-env node, jest */
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongoose = require('mongoose');
 
@@ -22,7 +23,9 @@ afterAll(async () => {
         if (mongoose.connection.readyState !== 0) {
             await mongoose.connection.close();
         }
-    } catch { }
+    } catch (_error) {
+        console.log(_error)
+    }
     if (mongo) {
         await mongo.stop();
     }

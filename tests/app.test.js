@@ -1,3 +1,4 @@
+/* eslint-env node, jest */
 const request = require('supertest');
 
 // Importa la app exportada desde server.js
