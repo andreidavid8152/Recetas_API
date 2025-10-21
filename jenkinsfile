@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+
+    environment {
+        DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1430277229480382537/-vOchBLV-NFVMmanlekR0bp0nyf5YmJMlDz226qoiAnt5CQ8z7MWszYc7ZIDjwcIfwod'
+    }
+
+    stages {
+        stage('Instalación') {
+            steps {
+                bat 'npm install'
+            }
+        }
+
+        stage('Análisis de código') {
+            steps {
+                bat 'npx eslint . || exit 0'
+            }
+        }
+
+        stage('Test unitarios') {
+            steps {
+                bat 'npm test'
+            }
+        }
+
+        stage('Deploy local') {
+            steps {
+                bat 'start /B node server.js'
+            }
+        }
+    }
+
+    post {
+        success {
+            bat """
+            curl -H "Content-Type: application/json" ^
+                 -X POST %DISCORD_WEBHOOK% ^
+                 -d "{\\"content\\": \\"✅ Pipeline exitosa: Análisis, Tests y Deploy completado\\"}"
+            """
+        }
+
+        failure {
+            bat """
+            curl -H "Content-Type: application/json" ^
+                 -X POST %DISCORD_WEBHOOK% ^
+                 -d "{\\"content\\": \\"❌ La pipeline falló. Revisa los logs de Jenkins.\\"}"
+            """
+        }
+
+        always {
+            bat """
+            curl -H "Content-Type: application/json" ^
+                 -X POST %DISCORD_WEBHOOK% ^
+                 -d "{\\"content\\": \\"ℹ️ Pipeline finalizada (éxito o fallo)\\"}"
+            """
+        }
+    }
+}
